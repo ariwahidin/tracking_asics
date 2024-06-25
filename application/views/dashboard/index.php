@@ -40,7 +40,7 @@
 <body class="grocery-color public-san-body">
     <!-- Loader Box Start -->
     <div class="min-loader-wrapper">
-        <img src="https://themes.pixelstrap.net/multikit/assets/images/favicon/3.svg" class="img-fluid loader" alt="">
+        <img src="<?= base_url() ?>assets/svg/3.svg" class="img-fluid loader" alt="">
         <div class="loader-section grocery-color section-left"></div>
         <div class="loader-section grocery-color section-right"></div>
     </div>
@@ -53,7 +53,7 @@
                 <i class="ri-menu-2-line"></i>
             </button>
             <a href="index.html">
-                <img src="" class="img-fluid" alt="">
+                <img src="<?= base_url() ?>assets/svg/6.svg" class="img-fluid" alt="">
             </a>
         </div>
 
@@ -608,7 +608,7 @@
                     </button>
                 </li>
                 <li>
-                    <button onclick="location.href = 'https://themes.pixelstrap.net/multikit/landing/index.html';" class="theme-setting-button">
+                    <button onclick="" class="theme-setting-button">
                         <i class="ri-home-3-line"></i>
                     </button>
                 </li>
