@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from themes.pixelstrap.net/multikit/grocery/payment.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 25 Jun 2024 14:17:31 GMT -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="multikit">
+    <meta name="keywords" content="multikit">
+    <title>Multikit - Multi-purpose Html Template</title>
+    <link rel="manifest" href="https://themes.pixelstrap.net/multikit/manifest.json">
+    <meta name="theme-color" content="#ff8d2f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="multikit">
+    <meta name="msapplication-TileImage" content="https://themes.pixelstrap.net/multikit/assets/images/favicon/1.svg">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://themes.pixelstrap.net/multikit/assets/images/favicon/3.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="https://themes.pixelstrap.net/multikit/" type="image/x-icon">
+
+    <!-- Google font css link  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap">
+
+    <!-- Bootstrap css -->
+    <link id="rtl-link" rel="stylesheet" type="text/css" href="../assets/css/vendors/bootstrap.css">
+
+    <!-- Loader Normalize css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/normalize.min.css">
+
+    <!-- Swiper css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/swiper/swiper-bundle.min.css">
+
+    <!-- Remix Icon css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/remixicon.css">
+
+    <!-- Style css -->
+    <link id="change-link" rel="stylesheet" type="text/css" href="../assets/css/style.css">
+</head>
+
+<body class="grocery-color public-san-body">
+    <!-- Loader Box Start -->
+    <div class="min-loader-wrapper">
+        <img src="https://themes.pixelstrap.net/multikit/assets/images/favicon/3.svg" class="img-fluid loader" alt="">
+        <div class="loader-section grocery-color section-left"></div>
+        <div class="loader-section grocery-color section-right"></div>
+    </div>
+    <!-- Loader Box End -->
+
+    <!-- header Start -->
+    <header class="header-style-6">
+        <div class="left-header header-title">
+            <a href="address.html">
+                <i class="ri-arrow-left-s-line"></i>
+            </a>
+            <h4>Add Payment Method</h4>
+        </div>
+    </header>
+    <!-- header End -->
+
+    <!-- Select Method Section Start -->
+    <section>
+        <div class="custom-container">
+            <div class="accordion accordion-style" id="accordionPanelsStayOpenExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="card1">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#card">Select Card</button>
+                    </h2>
+                    <div id="card" class="accordion-collapse collapse show">
+                        <div class="accordion-body p-0">
+                            <ul class="payment-list">
+                                <li>
+                                    <input value="1" type="radio" name="1" class="form-check-input" id="01">
+                                    <label class="minha-table" for="01">
+                                        <img src="../assets/images/pay/m-card.png" alt="">
+                                        <span>9800 XXXX XXXX 0545</span>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <input value="1" type="radio" name="1" class="form-check-input" id="02">
+                                    <label class="minha-table" for="02">
+                                        <img src="../assets/images/pay/visa.png" alt="">
+                                        <span>6580 XXXX XXXX 2562</span>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <input value="3" type="radio" name="1" class="form-check-input" id="03" checked>
+                                    <label class="minha-table" for="03">
+                                        <img src="../assets/images/pay/discover.png" alt="">
+                                        <span>5125 XXXX XXXX 6262</span>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <a href="#addcardOffcanvas" data-bs-toggle="offcanvas"
+                                        class="minha-table title-color d-block text-center">+ Add New Card</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="netBanking1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#netBanking">Net Banking</button>
+                    </h2>
+                    <div id="netBanking" class="accordion-collapse collapse">
+                        <div class="accordion-body p-0">
+                            <ul class="payment-list">
+                                <li>
+                                    <input type="radio" id="5" name="1" class="form-check-input">
+                                    <label class="minha-table" for="5">
+                                        <img src="../assets/images/bank/axis.png" alt="">
+                                        <span>Axis Bank</span>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <input type="radio" id="6" name="1" class="form-check-input">
+                                    <label class="minha-table" for="6">
+                                        <img src="../assets/images/bank/hdfc.png" alt="">
+                                        <span>HDFC Bank</span>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <input type="radio" id="7" name="1" class="form-check-input">
+                                    <label class="minha-table" for="7">
+                                        <img src="../assets/images/bank/icici.png" alt="">
+                                        <span>ICICI Bank</span>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <input type="radio" id="8" name="1" class="form-check-input">
+                                    <label class="minha-table" for="8">
+                                        <img src="../assets/images/bank/union.png" alt="">
+                                        <span>Union Bank</span>
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <select name="bankname" class="form-control" required>
+                                        <option value="" selected="selected" disabled>-- Select --</option>
+                                        <option value="1">ALLAHABAD BANK </option>
+                                        <option value="2">ANDHRA BANK</option>
+                                        <option value="3">AXIS BANK</option>
+                                        <option value="29">STATE BANK OF INDIA</option>
+                                        <option value="4">BANK OF BARODA</option>
+                                        <option value="29">UCO BANK</option>
+                                        <option value="29">UNION BANK OF INDIA</option>
+                                        <option value="5">BANK OF INDIA</option>
+                                        <option value="20">BANDHAN BANK LIMITED</option>
+                                        <option value="7">CANARA BANK</option>
+                                        <option value="32">GRAMIN VIKASH BANK</option>
+                                        <option value="8">CORPORATION BANK</option>
+                                        <option value="9">INDIAN BANK</option>
+                                        <option value="10">INDIAN OVERSEAS BANK</option>
+                                        <option value="11">ORIENTAL BANK OF COMMERCE</option>
+                                        <option value="12">PUNJAB AND SIND BANK</option>
+                                        <option value="13">PUNJAB NATIONAL BANK</option>
+                                        <option value="14">RESERVE BANK OF INDIA</option>
+                                        <option value="15">SOUTH INDIAN BANK</option>
+                                        <option value="16">UNITED BANK OF INDIA</option>
+                                        <option value="17">CENTRAL BANK OF INDIA</option>
+                                        <option value="18">VIJAYA BANK</option>
+                                        <option value="19">DENA BANK</option>
+                                        <option value="21">BHARATIYA MAHILA BANK LIMITED</option>
+                                        <option value="22">FEDERAL BANK LTD </option>
+                                        <option value="23">HDFC BANK LTD</option>
+                                        <option value="24">ICICI BANK LTD</option>
+                                        <option value="25">IDBI BANK LTD</option>
+                                        <option value="66">PAYTM BANK</option>
+                                        <option value="29">FINO PAYMENT BANK</option>
+                                        <option value="26">INDUSIND BANK LTD</option>
+                                        <option value="27">KARNATAKA BANK LTD</option>
+                                        <option value="28">KOTAK MAHINDRA BANK</option>
+                                        <option value="30">YES BANK LTD</option>
+                                        <option value="31">SYNDICATE BANK</option>
+                                        <option value="5">BANK OF INDIA</option>
+                                        <option value="6">BANK OF MAHARASHTRA</option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="credit1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#credit">Credit/Debit Card</button>
+                    </h2>
+                    <div id="credit" class="accordion-collapse collapse">
+                        <div class="accordion-body p-0">
+                            <form class="form-style-7 wo-icon card-form">
+                                <div class="row g-2">
+                                    <div class="col-12">
+                                        <div class="form-box">
+                                            <input type="Number" class="form-control" placeholder="Card Number">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-box">
+                                            <input type="text" class="form-control" placeholder="Card Holder Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-box">
+                                            <input type="date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-box">
+                                            <input type="number" class="form-control" placeholder="CVV">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="cod1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#cod">Cash on Delivery</button>
+                    </h2>
+                    <div id="cod" class="accordion-collapse collapse">
+                        <div class="accordion-body p-0">
+                            Check to see if COD (Cash on Delivery) is applicable where they are.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Select Method Section End -->
+
+    <!-- Order Details Section Start -->
+    <section class="section-t-space-3">
+        <div class="custom-container">
+            <div class="order-details-bg">
+                <div class="title mb-0">
+                    <h4>Order Details</h4>
+                </div>
+                <ul class="order-details-list">
+                    <li>Bag total <span>$220.00</span></li>
+                    <li>Bag savings <span class="success">-$20.00</span></li>
+                    <li>Delivery <span>$50.00</span></li>
+                    <li>Total Amount <span>$270.00</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- Order Details Section End -->
+
+    <!-- Process Button Start -->
+    <a href="order-success.html" class="grocery-btn theme-btn fixed-button">Proceed to Checkout</a>
+    <!-- Process Button End -->
+
+    <!-- space box start -->
+    <div class="grocery-bottom-spacing"></div>
+    <!-- space box end -->
+
+    <!-- Theme Option Setting Box Start -->
+    <div class="theme-setting-box">
+        <div class="theme-box">
+            <button class="theme-icon text-white">
+                <i class="ri-menu-line"></i>
+            </button>
+            <ul class="theme-option">
+                <li>
+                    <button class="theme-setting-button" id="rtl-btn">
+                        <i class="ri-text-direction-r"></i>
+                    </button>
+                </li>
+                <li>
+                    <button class="theme-setting-button" id="dark-btn">
+                        <i class="ri-sun-line"></i>
+                    </button>
+                </li>
+                <li>
+                    <button onclick="location.href = 'https://themes.pixelstrap.net/multikit/landing/index.html';" class="theme-setting-button">
+                        <i class="ri-home-3-line"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Theme Option Setting Box End -->
+
+    <!-- edit offcanvas -->
+    <div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="addcardOffcanvas">
+        <div class="offcanvas-header">
+            <h3 class="offcanvas-title w-75">Add Card</h3>
+            <button type="button" class="btn-close p-0 m-0" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body pt-0">
+            <form class="row g-3 row g-3 form-style-7 wo-icon">
+                <div class="col-12">
+                    <input type="text" class="form-control" placeholder="Name of cardholder">
+                </div>
+                <div class="col-12">
+                    <input type="number" class="form-control" placeholder="Card Number">
+                </div>
+                <div class="col-6">
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col-6">
+                    <input type="number" class="form-control" placeholder="CVV">
+                </div>
+            </form>
+            <div class="d-flex align-items-center mt-4 gap-3">
+                <a href="#" class="btn grocery-btn border-btn" data-bs-dismiss="offcanvas">Cancel</a>
+                <a href="#!" class="btn grocery-btn theme-btn">Save</a>
+            </div>
+        </div>
+    </div>
+    <!-- edit offcanvas -->
+
+    <!-- Bootstrap js-->
+    <script src="../assets/js/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+
+    <!-- Loader js -->
+    <script src="../assets/js/loader.js"></script>
+
+    <!-- Theme js-->
+    <script src="../assets/js/script.js"></script>
+
+    <!-- Theme Settings js-->
+    <script src="../assets/js/theme-setting.js"></script>
+</body>
+
+
+<!-- Mirrored from themes.pixelstrap.net/multikit/grocery/payment.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 25 Jun 2024 14:17:33 GMT -->
+</html>
