@@ -8,6 +8,7 @@
     <meta name="description" content="multikit">
     <meta name="keywords" content="multikit">
     <title>Multikit - Multi-purpose Html Template</title>
+    <link rel="icon" href="<?= base_url() ?>assets/svg/yusen.svg" type="image/x-icon">
     <meta name="theme-color" content="#ff8d2f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -40,7 +41,7 @@
 <body class="grocery-color public-san-body">
     <!-- Loader Box Start -->
     <div class="min-loader-wrapper">
-        <img src="<?= base_url() ?>assets/svg/3.svg" class="img-fluid loader" alt="">
+        <img src="<?= base_url() ?>assets/svg/yusen.svg" class="img-fluid loader" alt="">
         <div class="loader-section grocery-color section-left"></div>
         <div class="loader-section grocery-color section-right"></div>
     </div>
@@ -53,13 +54,13 @@
                 <i class="ri-menu-2-line"></i>
             </button>
             <a href="index.html">
-                <img src="<?= base_url() ?>assets/svg/6.svg" class="img-fluid" alt="">
+                <img src="<?= base_url() ?>assets/svg/yusen.svg" class="img-fluid" alt="" style="width:85px !important;">
             </a>
         </div>
 
         <div class="right-header">
             <a href="address.html" class="btn location-btn">
-                <i class="ri-map-pin-2-line"></i> Bastrop, Texas</a>
+                <i class="ri-map-pin-2-line"></i> <span id="spanDistrict"></span>, <span id="spanCountry"></span></a>
             <a href="account.html" class="profile-image">
                 <img src="<?= base_url() ?>assets/images/grocery/dp.jpg" class="img-fluid" alt="">
             </a>
@@ -585,37 +586,10 @@
                 </li>
             </ul>
 
-            <a href="sign-in.html" class="sidebar-btn grocery-btn white-btn">Logout</a>
+            <a href="<?=base_url('auth/index')?>" class="sidebar-btn grocery-btn white-btn">Logout</a>
         </div>
     </div>
     <!-- Side Menu Offcanvas End -->
-
-    <!-- Theme Option Setting Box Start -->
-    <div class="theme-setting-box">
-        <div class="theme-box">
-            <button class="theme-icon text-white">
-                <i class="ri-menu-line"></i>
-            </button>
-            <ul class="theme-option">
-                <li>
-                    <button class="theme-setting-button" id="rtl-btn">
-                        <i class="ri-text-direction-r"></i>
-                    </button>
-                </li>
-                <li>
-                    <button class="theme-setting-button" id="dark-btn">
-                        <i class="ri-sun-line"></i>
-                    </button>
-                </li>
-                <li>
-                    <button onclick="" class="theme-setting-button">
-                        <i class="ri-home-3-line"></i>
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <!-- Theme Option Setting Box End -->
 
     <!-- Bootstrap js-->
     <script src="<?= base_url() ?>assets/js/vendors/bootstrap/bootstrap.bundle.min.js"></script>
@@ -633,8 +607,11 @@
     <!-- Theme js-->
     <script src="<?= base_url() ?>assets/js/script.js"></script>
 
-    <!-- Theme Settings js-->
-    <script src="<?= base_url() ?>assets/js/theme-setting.js"></script>
+    <!-- Jquery -->
+    <script src="<?= base_url() ?>assets/js/jquery-3.7.0.js"></script>
+
+    <!-- Custome js-->
+    <script src="<?= base_url() ?>assets/js/custom_template.js"></script>
 </body>
 
 </html>
