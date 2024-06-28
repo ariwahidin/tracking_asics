@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'http://localhost:82/grocery/';
-$config['base_url'] = 'https://6e9c-103-111-191-146.ngrok-free.app/grocery/';
+$config['base_url'] = 'https://a874-103-111-191-146.ngrok-free.app/grocery/';
 
 /*
 |--------------------------------------------------------------------------
