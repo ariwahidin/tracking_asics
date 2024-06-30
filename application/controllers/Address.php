@@ -53,7 +53,6 @@ class Address extends CI_Controller
         }
     }
 
-
     public function barangSampai()
     {
         $this->order_m->barangSampai();
@@ -77,5 +76,10 @@ class Address extends CI_Controller
         }
 
         echo json_encode(array('success' => false));
+    }
+
+
+    public function search(){
+        $this->load->view('address/search');
     }
 }

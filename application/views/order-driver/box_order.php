@@ -53,6 +53,9 @@
                                 </div>
                             </div>
                             <div class="cart-right-box">
+                                <button data-cust-addr="<?= $data->cust_addr1 ?>" data-ship-to="<?= $data->ship_to ?>" data-order-id="<?= $data->order_id ?>" data-cust-name="<?= $data->cust_name ?>" class="remove-button btn btnTrack">
+                                    <i class="ri-road-map-fill"></i>
+                                </button>
                                 <?php
                                 if (is_null($data->arrival_status)) {
                                 ?>

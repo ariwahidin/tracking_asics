@@ -221,9 +221,9 @@
 
     <!-- header Start -->
     <header class="header-style-6 header-absolute">
-        <a href="index.html" class="arrow-box">
+        <!-- <a href="#" class="arrow-box">
             <i class="ri-arrow-left-s-line"></i>
-        </a>
+        </a> -->
 
         <a href="javascript:void(0)" class="arrow-box" id="btnCenter">
             <i class="ri-focus-3-line"></i>

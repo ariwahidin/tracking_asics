@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-// $config['base_url'] = 'http://localhost:82/grocery/';
-$config['base_url'] = 'https://a874-103-111-191-146.ngrok-free.app/grocery/';
+$config['base_url'] = 'http://localhost:82/grocery/';
+// $config['base_url'] = 'https://b4f3-140-213-129-101.ngrok-free.app/grocery/';
 
 /*
 |--------------------------------------------------------------------------

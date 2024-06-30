@@ -32,6 +32,10 @@ class Order extends CI_Controller
 
 	public function scan()
 	{
-		redirect("https://" . $_SERVER['HTTP_HOST'] . "/jsQR/docs/index.html");
+		redirect("http://" . $_SERVER['HTTP_HOST'] . "/jsQR/docs/index.html");
+	}
+
+	public function tracking(){
+		$this->load->view('tracking/index');
 	}
 }

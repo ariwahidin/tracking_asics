@@ -30,7 +30,7 @@ function truncateText($text, $maxLength = 25)
                 </a>
                 <div class="product-content">
                     <div>
-                        <a href="product.html">
+                        <a href="#">
                             <h5 class="name"><?= truncateText($data->cust_name) ?></h5>
                         </a>
                         <h5 class="category"><?= $data->delivery_no ?></h5>
