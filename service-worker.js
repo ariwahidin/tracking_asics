@@ -1,13 +1,12 @@
-var CACHE_NAME = 'my-cache-v1'; // Nama cache untuk versi ini
+var CACHE_NAME = 'mytms-v1'; // Nama cache untuk versi ini
 
 // Menambahkan file dan aset yang ingin di-cache
 var urlsToCache = [
     '/',
-    '/tracking_asics/',
-    '/tracking_asics/index.php',
-    '/tracking_asics/assets/css/styles.css',
-    '/tracking_asics/assets/js/scripts.js',
-    // '/assets/images/logo.png'
+    '/mytms/',
+    '/mytms/index.php',
+    '/mytms/assets/css/styles.css',
+    '/mytms/assets/js/scripts.js',
     // Tambahkan file lain yang ingin Anda cache di sini
 ];
 

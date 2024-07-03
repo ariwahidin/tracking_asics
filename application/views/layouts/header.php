@@ -82,11 +82,12 @@
             <button type="button" class="btn menu-btn" data-bs-toggle="offcanvas" data-bs-target="#sideMenu">
                 <i class="ri-menu-2-line"></i>
             </button>
+        </div>
+        <div class="center-header">
             <a href="#">
-                <img src="<?= base_url() ?>assets/svg/yusen.svg" class="img-fluid" alt="" style="width: 65px !important;">
+                <img src="<?= base_url() ?>assets/svg/yusen.svg" class="img-fluid" alt="" style="width: 85px !important; height: 30px;">
             </a>
         </div>
-
         <div class="right-header">
             <a href="#" class="profile-image">
                 <img src="<?= base_url() ?>/assets/images/grocery/user.png" class="img-fluid" alt="">
