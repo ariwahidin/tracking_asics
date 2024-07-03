@@ -390,8 +390,6 @@
 
                 $.getJSON(geocodeURL, function(data) {
                     if (data && data.address) {
-                        // console.log(data)
-                        // console.log(data.address)
                         var address = data.address;
                         var city = address.city || address.town || address.village;
                         var city_district = address.city_district;
@@ -424,7 +422,7 @@
             function showError(error) {
                 switch (error.code) {
                     case error.PERMISSION_DENIED:
-                        alert("User denied the request for Geolocation.");
+                        alert("Pengguna menolak permintaan Geolokasi.");
                         break;
                     case error.POSITION_UNAVAILABLE:
                         alert("Location information is unavailable.");
