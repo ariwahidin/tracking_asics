@@ -57,7 +57,7 @@
 
 <body>
     <!-- <h1>QR Scanner</h1> -->
-    <p style="margin-top: 30px;">Arahkan pada QR Code yang ada pada SPK</p>
+    <h3 style="margin-top: 50px;">Arahkan pada QR Code yang ada pada SPK</h3>
     <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
     <canvas id="canvas" hidden></canvas>
     <div id="output" hidden>
