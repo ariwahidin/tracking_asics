@@ -41,11 +41,11 @@
     <script src="<?= base_url() ?>/assets/js/script.js"></script>
 
     <!-- Jquery -->
-    <script src="<?= base_url() ?>assets/js/jquery-3.7.0.js"></script>
+    <script src="<?= base_url() ?>/assets/js/jquery-3.7.0.js"></script>
 
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js')
+            navigator.serviceWorker.register('<?= base_url() ?>/service-worker.js')
                 .then(function(registration) {
                     console.log('Service Worker registered with scope:', registration.scope);
                 }).catch(function(error) {
