@@ -35,7 +35,17 @@ class Order extends CI_Controller
 		redirect("http://" . $_SERVER['HTTP_HOST'] . "/jsQR/docs/index.html");
 	}
 
-	public function tracking(){
-		$this->load->view('tracking/index');
+	public function tracking()
+	{
+		if ($this->input->get('spk')) {
+			$data = array();
+			$this->load->view('tracking/index', $data);
+		} else {
+			show_404();
+		}
+	}
+
+	public function trackingSPK(){
+		
 	}
 }

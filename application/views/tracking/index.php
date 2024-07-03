@@ -46,7 +46,7 @@
                     </a>
                 </div>
                 <div class="header-name">
-                    <p>Tracking SPK0000990XX</p>
+                    <p><?= $this->input->get('spk'); ?></p>
                 </div>
             </div>
             <div class="boder"></div>
@@ -120,6 +120,12 @@
     <script src="<?= base_url() ?>/assets/taxi/assets/js/slick.min.js"></script>
     <script src="<?= base_url() ?>/assets/taxi/assets/js/bootstrap.bundle.min.js"></script>
     <script src="<?= base_url() ?>/assets/taxi/assets/js/custom.js"></script>
+    <script>
+        $(document).ready(function() {
+            alert('test')
+            // $.post("<?= base_url('order/')?>", );
+        })
+    </script>
 </body>
 
 </html>

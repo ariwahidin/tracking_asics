@@ -1,5 +1,5 @@
     <!-- Location Box Section Start -->
-    <div class="grocery-location-box">
+    <div style="max-height: 650px; overflow: auto" class="grocery-location-box">
 
         <div class="custom-container">
 
@@ -39,6 +39,10 @@
                 </li>
 
                 <?php
+                // var_dump($order->result());
+                ?>
+
+                <?php
                 foreach ($order->result() as $data) {
                 ?>
 
@@ -49,21 +53,23 @@
                                     <h5>
                                         <a href="#"><?= $data->cust_name ?></a>
                                     </h5>
+                                    <h6><?= $data->delivery_no ?></h6>
                                     <h6><?= $data->cust_addr1 ?></h6>
                                 </div>
                             </div>
                             <div class="cart-right-box">
-                                <button data-cust-addr="<?= $data->cust_addr1 ?>" data-ship-to="<?= $data->ship_to ?>" data-order-id="<?= $data->order_id ?>" data-cust-name="<?= $data->cust_name ?>" class="remove-button btn btnTrack">
-                                    <i class="ri-road-map-fill"></i>
+                                <button data-delivery-no="<?= $data->delivery_no ?>" data-cust-addr="<?= $data->cust_addr1 ?>" data-ship-to="<?= $data->ship_to ?>" data-order-id="<?= $data->order_id ?>" data-cust-name="<?= $data->cust_name ?>" class="remove-button btn btnTrack">
+                                    <i class="ri-edit-2-fill"></i>
                                 </button>
-                                <?php
-                                if (is_null($data->arrival_status)) {
-                                ?>
+
+                                <!-- <?php
+                                        if (is_null($data->arrival_status)) {
+                                        ?>
                                     <button id="" data-cust-addr="<?= $data->cust_addr1 ?>" data-ship-to="<?= $data->ship_to ?>" data-order-id="<?= $data->order_id ?>" data-cust-name="<?= $data->cust_name ?>" class="remove-button btn btnArrival">
                                         <i class="ri-truck-line"></i>
                                     </button>
                                 <?php
-                                }
+                                        }
                                 ?>
 
                                 <?php
@@ -74,7 +80,7 @@
                                     </button>
                                 <?php
                                 }
-                                ?>
+                                ?> -->
                             </div>
                         </div>
                         <hr>

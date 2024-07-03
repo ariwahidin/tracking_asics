@@ -438,16 +438,24 @@
                 }
             }
 
-            $('#order-section').on('click', '.btnArrival', function() {
+            $('#order-section').on('click', '.btnTrack', function() {
                 let order_id = $(this).data('order-id');
                 let ship_to = $(this).data('ship-to');
                 let cust_name = $(this).data('cust-name');
                 let cust_addr = $(this).data('cust-addr');
+                let delivery_no = $(this).data('delivery-no');
+
+                let driverName = '';
+                if (localStorage.getItem('t_driverName')) {
+                    driverName = localStorage.getItem('t_driverName');
+                }
+
+
                 $('#modal-conf').empty();
                 let elem = `
-                <form id="formArrival">
+                <form id="formUpdateTrack">
                 <div class="modal-header">
-                    <h4 class="modal-title">Konfirmasi barang tiba ditujuan :</h4>
+                    <h4 class="modal-title">Update order status:</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal">
                         <i class="ri-close-line"></i>
                     </button>
@@ -458,119 +466,72 @@
                             <h5>
                                 <a href="#">${cust_name}</a>
                             </h5>
+                            <h6>${delivery_no}</h6>
                             <h6>${cust_addr}</h6>
                         </li>
                         <li>
                             <div class="mt-3 chatting-form-control">
+                                <label>Barang sampai di :</label>
+                                <input type="text" class="form-control form-control-border" placeholder="Terminal/Pelabuhan/Bandara etc.." id="lokasi_terkini" value="" required autocomplete="off">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="mt-3 chatting-form-control">
+                                <label>Nama petugas :</label>
                                 <input type="hidden" id="in_spk" value="${order_id}">
                                 <input type="hidden" id="in_ship_to" value="${ship_to}">
-                                <input type="text" class="form-control form-control-border" id="user_name" placeholder="Nama Driver" required autocomplete="off">
+                                <input type="hidden" id="delivery_no" value="${delivery_no}">
+                                <input type="text" class="form-control form-control-border" placeholder="Masukan nama anda/petugas/driver" id="user_name" value="${driverName}" required autocomplete="off">
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-theme btn-light" data-bs-dismiss="modal">No</button>
-                    <button type="submit" class="btn btn-theme btn-light" id="btnSubmit">Yes</button>
+                    <button type="submit" class="btn btn-theme btn-light btnSubmit" data-submit="on the way">Update Perjalanan</button>
+                    <button type="submit" class="btn btn-theme btn-light btnSubmit" data-submit="goods arrived">Barang Sampai</button>
+                    <button type="submit" class="btn btn-theme btn-light btnSubmit" data-submit="goods unloading">Barang Dibongkar</button>
                 </div>
                 </form>`;
                 $('#modal-conf').html(elem);
                 $('#modalArrival').modal('show');
             })
 
-            $('#order-section').on('click', '.btnUnloading', function() {
-                let order_id = $(this).data('order-id');
-                let ship_to = $(this).data('ship-to');
-                let cust_name = $(this).data('cust-name');
-                let cust_addr = $(this).data('cust-addr');
-                $('#modal-conf').empty();
-                let elem = `
-                <form id="formUnloading">
-                <div class="modal-header">
-                    <h4 class="modal-title">Konfirmasi barang dibongkar :</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal">
-                        <i class="ri-close-line"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <ul class="delete-list" id="conf-cust">
-                        <li>
-                            <h5>
-                                <a href="#">${cust_name}</a>
-                            </h5>
-                            <h6>${cust_addr}</h6>
-                        </li>
-                        <li>
-                            <div class="mt-3 chatting-form-control">
-                                <input type="hidden" id="in_spk" value="${order_id}">
-                                <input type="hidden" id="in_ship_to" value="${ship_to}">
-                                <input type="text" class="form-control form-control-border" id="user_name" placeholder="Nama Driver" required autocomplete="off">
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-theme btn-light" data-bs-dismiss="modal">No</button>
-                    <button type="submit" class="btn btn-theme btn-light" id="btnSubmit">Yes</button>
-                </div>
-                </form>`;
-                $('#modal-conf').html(elem);
-                $('#modalArrival').modal('show');
-            })
-
-            $('#modal-conf').on('submit', '#formArrival', function(e) {
-
+            var lastClickedButton;
+            $('#modal-conf').on('click', '.btnSubmit', function() {
+                lastClickedButton = $(this);
+            });
+            $('#modal-conf').on('submit', '#formUpdateTrack', function(e) {
                 e.preventDefault();
-                let dataToPost = {
-                    user_address: userAddress,
-                    user_lat: userLat,
-                    user_lon: userLon,
-                    user_name: $('#user_name').val(),
-                    spk: $('#in_spk').val(),
-                    ship_to: $('#in_ship_to').val()
-                }
-                startLoading();
-                $.post("<?= base_url('address/barangSampai') ?>", dataToPost, function(response) {
-                    if (response.success == true) {
-                        $('#modalArrival').modal('hide');
-                        $('#exampleModalToggle2').modal('show');
-                        getBoxOrder();
-                        stopLoading();
-                    } else {
-                        $('#modalArrival').modal('hide');
-                        getBoxOrder();
-                        stopLoading();
-                    }
-                }, 'json');
+                if (lastClickedButton) {
+                    var status = lastClickedButton.data('submit');
 
+                    let dataToPost = {
+                        user_address: userAddress,
+                        user_lat: userLat,
+                        user_lon: userLon,
+                        user_name: $('#user_name').val(),
+                        spk: $('#in_spk').val(),
+                        ship_to: $('#in_ship_to').val(),
+                        delivery_no: $('#delivery_no').val(),
+                        lokasi_terkini: $('#lokasi_terkini').val(),
+                        status: status
+                    }
+                    startLoading();
+                    $.post("<?= base_url('address/updateStatusOrder') ?>", dataToPost, function(response) {
+                        if (response.success == true) {
+                            $('#modalArrival').modal('hide');
+                            $('#exampleModalToggle2').modal('show');
+                            getBoxOrder();
+                            stopLoading();
+                        } else {
+                            $('#modalArrival').modal('hide');
+                            getBoxOrder();
+                            stopLoading();
+                        }
+                    }, 'json');
+                }
             })
 
-            $('#modal-conf').on('submit', '#formUnloading', function(e) {
-
-                e.preventDefault();
-                let dataToPost = {
-                    user_address: userAddress,
-                    user_lat: userLat,
-                    user_lon: userLon,
-                    user_name: $('#user_name').val(),
-                    spk: $('#in_spk').val(),
-                    ship_to: $('#in_ship_to').val()
-                }
-                startLoading();
-                $.post("<?= base_url('address/truckUnloading') ?>", dataToPost, function(response) {
-                    if (response.success == true) {
-                        $('#modalArrival').modal('hide');
-                        $('#exampleModalToggle2').modal('show');
-                        getBoxOrder();
-                        stopLoading();
-                    } else {
-                        $('#modalArrival').modal('hide');
-                        getBoxOrder();
-                        stopLoading();
-                    }
-                }, 'json');
-
-            })
 
             getBoxOrder();
 

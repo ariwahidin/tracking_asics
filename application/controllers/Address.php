@@ -19,10 +19,10 @@ class Address extends CI_Controller
 
     public function getBoxOrder()
     {
-        if (isset($_GET['spk'])) {
-            $spk = $_GET['spk'];
+        if ($this->input->get('spk')) {
+            $spk = $this->input->get('spk');
             $this->load->database();
-            $sql = "SELECT DISTINCT a.order_id, a.ship_to, a.destination_city, 
+            $sql = "SELECT DISTINCT a.order_id, a.delivery_no, a.ship_to, a.destination_city, 
             b.cust_name, b.cust_addr1,
             (SELECT order_status FROM order_d_status 
             WHERE order_id = a.order_id 
@@ -50,12 +50,26 @@ class Address extends CI_Controller
             );
 
             echo json_encode($response);
+        } else {
+            show_404();
         }
     }
 
-    public function barangSampai()
+    // public function barangSampai()
+    // {
+    //     $this->order_m->barangSampai();
+
+    //     if ($this->db->affected_rows() > 0) {
+    //         echo json_encode(array('success' => true));
+    //         return;
+    //     }
+
+    //     echo json_encode(array('success' => false));
+    // }
+
+    public function updateStatusOrder()
     {
-        $this->order_m->barangSampai();
+        $this->order_m->updateStatusOrder();
 
         if ($this->db->affected_rows() > 0) {
             echo json_encode(array('success' => true));
@@ -65,21 +79,22 @@ class Address extends CI_Controller
         echo json_encode(array('success' => false));
     }
 
-    public function truckUnloading()
+    // public function truckUnloading()
+    // {
+    //     $this->order_m->barangSampai();
+    //     $this->order_m->truckUnloading();
+
+    //     if ($this->db->affected_rows() > 0) {
+    //         echo json_encode(array('success' => true));
+    //         return;
+    //     }
+
+    //     echo json_encode(array('success' => false));
+    // }
+
+
+    public function search()
     {
-        $this->order_m->barangSampai();
-        $this->order_m->truckUnloading();
-
-        if ($this->db->affected_rows() > 0) {
-            echo json_encode(array('success' => true));
-            return;
-        }
-
-        echo json_encode(array('success' => false));
-    }
-
-
-    public function search(){
         $this->load->view('address/search');
     }
 }

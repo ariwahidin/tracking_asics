@@ -10,10 +10,6 @@ function truncateText($text, $maxLength = 25)
         return $text;
     }
 }
-
-// Contoh penggunaan
-// $text = "Ini adalah contoh teks yang sangat panjang.";
-// echo truncateText($text);
 ?>
 
 <ul class="product-offer-list">
