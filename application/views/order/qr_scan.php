@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>jsQR Demo</title>
+    <title>Scan SPK</title>
     <script src="<?= base_url() ?>qr_scanner/docs/jsQR.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Ropa+Sans" rel="stylesheet">
     <style>
@@ -21,10 +21,11 @@
             color: #2D99FF;
         }
 
-        h1 {
+        /* h1 {
+            margin-top: 30px !important;
             margin: 10px 0;
             font-size: 40px;
-        }
+        } */
 
         #loadingMessage {
             text-align: center;
@@ -55,7 +56,8 @@
 </head>
 
 <body>
-    <h1>QR Scanner</h1>
+    <!-- <h1>QR Scanner</h1> -->
+    <p style="margin-top: 30px;">Arahkan pada QR Code yang ada pada SPK</p>
     <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
     <canvas id="canvas" hidden></canvas>
     <div id="output" hidden>
