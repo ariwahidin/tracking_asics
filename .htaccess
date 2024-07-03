@@ -1,9 +1,5 @@
 RewriteEngine On
 
-# Force HTTPS:
-RewriteCond %{HTTPS} !=on
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
 # Cache Control Headers:
 <ifModule mod_headers.c>
   Header set Cache-Control "max-age=31536000, public"
