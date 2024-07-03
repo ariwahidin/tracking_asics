@@ -2,6 +2,7 @@ var CACHE_NAME = 'my-cache-v1'; // Nama cache untuk versi ini
 
 // Menambahkan file dan aset yang ingin di-cache
 var urlsToCache = [
+    '/',
     '/tracking_asics/',
     '/tracking_asics/index.php',
     '/tracking_asics/assets/css/styles.css',
