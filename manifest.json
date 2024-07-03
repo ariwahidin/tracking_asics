@@ -1,7 +1,7 @@
 {
     "name": "PYID Tracking Order",
     "short_name": "My TMS",
-    "start_url": "/",
+    "start_url": "/tracking_asics/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#000000",
