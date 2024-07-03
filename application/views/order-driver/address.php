@@ -16,6 +16,7 @@
     <meta name="msapplication-TileImage" content="<?= base_url() ?>assets/svg/yusen.svg">
     <meta name="msapplication-TileColor" content="#FFFFFF">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="manifest" href="<?= base_url() ?>/manifest.json">
     <link rel="icon" href="<?= base_url() ?>assets/svg/yusen.svg" type="image/x-icon">
 
     <!-- Google font css link  -->
@@ -554,6 +555,16 @@
             });
 
         });
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('<?= base_url() ?>service-worker.js')
+                .then(function(registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                }).catch(function(error) {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
     </script>
 </body>
 
