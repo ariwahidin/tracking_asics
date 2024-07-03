@@ -32,7 +32,8 @@ class Order extends CI_Controller
 
 	public function scan()
 	{
-		redirect("http://" . $_SERVER['HTTP_HOST'] . "/jsQR/docs/index.html");
+		// redirect("http://" . $_SERVER['HTTP_HOST'] . "/jsQR/docs/index.html");
+		$this->load->view('order/qr_scan');
 	}
 
 	public function tracking()
@@ -45,7 +46,7 @@ class Order extends CI_Controller
 		}
 	}
 
-	public function trackingSPK(){
-		
+	public function trackingSPK()
+	{
 	}
 }
