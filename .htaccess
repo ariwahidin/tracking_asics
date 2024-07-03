@@ -1,4 +1,15 @@
 RewriteEngine On
+
+# Force HTTPS:
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Cache Control Headers:
+<ifModule mod_headers.c>
+  Header set Cache-Control "max-age=31536000, public"
+</ifModule>
+
+# CodeIgniter Rewrite Rules:
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L]

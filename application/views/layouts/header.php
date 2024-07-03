@@ -17,6 +17,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="icon" href="<?= base_url() ?>assets/svg/yusen.svg" type="image/x-icon">
 
+    <link rel="manifest" href="<?= base_url() ?>/manifest.json">
+
     <!-- Google font css link  -->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap">
