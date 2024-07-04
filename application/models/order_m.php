@@ -2,19 +2,62 @@
 class Order_m extends CI_Model
 {
 
+
+    private function get_database_connection($spk_number)
+    {
+        $prefix = substr($spk_number, 0, 5); // Mengambil 5 karakter pertama dari $spk_number
+        if ($prefix === 'SPKAS') {
+            return $this->load->database('asics', TRUE);
+        } elseif ($prefix === 'SPKNV') {
+            return $this->load->database('navya', TRUE);
+        } else {
+            // Default atau error handling
+            return $this->load->database('default', TRUE);
+        }
+    }
+
+    public function get_spk($spk)
+    {
+        $db = $this->get_database_connection($spk);
+        $sql = "SELECT DISTINCT a.order_id, a.delivery_no, a.ship_to, a.destination_city, 
+        b.cust_name, b.cust_addr1,
+        (SELECT order_status FROM order_d_status 
+        WHERE order_id = a.order_id 
+        AND ship_to = a.ship_to
+        AND order_status = 'truck_arrival'
+        ) AS arrival_status,
+        (SELECT order_status FROM order_d_status 
+        WHERE order_id = a.order_id 
+        AND ship_to = a.ship_to
+        AND order_status = 'truck_unloading'
+        ) AS unloading_status
+        FROM order_d a
+        INNER JOIN customer b ON a.ship_to = b.cust_id
+        WHERE a.order_id = '$spk'
+        GROUP BY a.ship_to";
+        $query = $db->query($sql);
+        return $query;
+    }
+
+    public function get_history_spk()
+    {
+        $spk = $this->input->post('order_id');
+        $ship_to = $this->input->post('ship_to');
+        $db = $this->get_database_connection($spk);
+        $sql = "SELECT * FROM order_d_status WHERE order_id = '$spk' AND ship_to = '$ship_to'";
+        $query = $db->query($sql);
+        return $query;
+    }
+
+
     public function updateStatusOrder()
     {
         // Mengatur zona waktu ke Jakarta
         date_default_timezone_set('Asia/Jakarta');
-
-        // Mendapatkan data POST
         $post = $this->input->post();
-
-
-        // var_dump($post);
-        // exit;
-
         $date = date('Y-m-d H:i:s');
+        $db = $this->get_database_connection($post['spk']);
+
 
         $where = array(
             'order_id' => $post['spk'],
@@ -22,10 +65,8 @@ class Order_m extends CI_Model
             'order_status' => 'goods arrived',
         );
 
-        // Memeriksa apakah sudah ada entri dengan kondisi tersebut
-        $check = $this->db->get_where('order_d_status', $where);
+        $check = $db->get_where('order_d_status', $where);
         if ($check->num_rows() < 1) {
-            // Menyiapkan data untuk dimasukkan
             $data = array(
                 'order_id' => $post['spk'],
                 'ship_to' => $post['ship_to'],
@@ -38,154 +79,13 @@ class Order_m extends CI_Model
                 'created_date' => $date,
                 'created_by' => $post['user_name']
             );
-
-            // Menyisipkan data baru ke dalam tabel
-            $this->db->insert('order_d_status', $data);
-
-            // Memeriksa apakah penyisipan berhasil
-            // if ($this->db->affected_rows() > 0) {
-            //     // Menyiapkan data untuk pembaruan
-            //     $update_data = array(
-            //         'rec_date' => $date
-            //     );
-
-            //     $where_update = array(
-            //         'order_id' => $post['spk'],
-            //         'ship_to' => $post['ship_to'],
-            //     );
-
-            //     // Menentukan kondisi pembaruan
-            //     $this->db->where($where_update);
-
-            //     // Memperbarui tabel order_d
-            //     $this->db->update('order_d', $update_data);
-            // }
+            $db->insert('order_d_status', $data);
         }
     }
-
-    // public function barangSampai()
-    // {
-    //     // Mengatur zona waktu ke Jakarta
-    //     date_default_timezone_set('Asia/Jakarta');
-
-    //     // Mendapatkan data POST
-    //     $post = $this->input->post();
-
-
-    //     var_dump($post);
-    //     exit;
-
-    //     $date = date('Y-m-d H:i:s');
-
-    //     $where = array(
-    //         'order_id' => $post['spk'],
-    //         'ship_to' => $post['ship_to'],
-    //         'order_status' => 'truck_arrival',
-    //     );
-
-    //     // Memeriksa apakah sudah ada entri dengan kondisi tersebut
-    //     $check = $this->db->get_where('order_d_status', $where);
-    //     if ($check->num_rows() < 1) {
-    //         // Menyiapkan data untuk dimasukkan
-    //         $data = array(
-    //             'order_id' => $post['spk'],
-    //             'ship_to' => $post['ship_to'],
-    //             'order_status' => 'truck_arrival',
-    //             'lat' => $post['user_lat'],
-    //             'lon' => $post['user_lon'],
-    //             'address' => $post['user_address'],
-    //             'created_date' => $date,
-    //             'created_by' => $post['user_name']
-    //         );
-
-    //         // Menyisipkan data baru ke dalam tabel
-    //         $this->db->insert('order_d_status', $data);
-
-    //         // Memeriksa apakah penyisipan berhasil
-    //         if ($this->db->affected_rows() > 0) {
-    //             // Menyiapkan data untuk pembaruan
-    //             $update_data = array(
-    //                 'rec_date' => $date
-    //             );
-
-    //             $where_update = array(
-    //                 'order_id' => $post['spk'],
-    //                 'ship_to' => $post['ship_to'],
-    //             );
-
-    //             // Menentukan kondisi pembaruan
-    //             $this->db->where($where_update);
-
-    //             // Memperbarui tabel order_d
-    //             $this->db->update('order_d', $update_data);
-    //         }
-    //     }
-    // }
-
-    // public function truckUnloading()
-    // {
-    //     // Mengatur zona waktu ke Jakarta
-    //     date_default_timezone_set('Asia/Jakarta');
-
-    //     // Mendapatkan data POST
-    //     $post = $this->input->post();
-    //     $date = date('Y-m-d H:i:s');
-
-    //     $where = array(
-    //         'order_id' => $post['spk'],
-    //         'ship_to' => $post['ship_to'],
-    //         'order_status' => 'truck_unloading',
-    //     );
-
-    //     // Memeriksa apakah sudah ada entri dengan kondisi tersebut
-    //     $check = $this->db->get_where('order_d_status', $where);
-
-
-
-    //     if ($check->num_rows() < 1) {
-    //         // Menyiapkan data untuk dimasukkan
-    //         $data = array(
-    //             'order_id' => $post['spk'],
-    //             'ship_to' => $post['ship_to'],
-    //             'order_status' => 'truck_unloading',
-    //             'lat' => $post['user_lat'],
-    //             'lon' => $post['user_lon'],
-    //             'address' => $post['user_address'],
-    //             'created_date' => $date,
-    //             'created_by' => $post['user_name']
-    //         );
-
-    //         // Menyisipkan data baru ke dalam tabel
-    //         $this->db->insert('order_d_status', $data);
-
-    //         // Memeriksa apakah penyisipan berhasil
-    //         if ($this->db->affected_rows() > 0) {
-    //             // Menyiapkan data untuk pembaruan
-    //             $update_data = array(
-    //                 'date_unloading' => $date
-    //             );
-
-    //             $where_update = array(
-    //                 'order_id' => $post['spk'],
-    //                 'ship_to' => $post['ship_to'],
-    //             );
-
-
-    //             // Menentukan kondisi pembaruan
-    //             $this->db->where($where_update);
-
-    //             // Memperbarui tabel order_d
-    //             $this->db->update('order_d', $update_data);
-    //         }
-    //     }
-    // }
 
     public function getOrder()
     {
         $search = $this->input->post('search');
-
-        // var_dump($search);
-
         $sql = "SELECT a.order_id, a.ship_to, a.delivery_no, a.destination_city, 
         b.cust_name, b.cust_addr1, c.order_date
         FROM order_d a
@@ -204,7 +104,8 @@ class Order_m extends CI_Model
         return $query;
     }
 
-    public function getTrackingOrderHeader($spk){
+    public function getTrackingOrderHeader($spk)
+    {
         $sql = "SELECT DISTINCT a.order_id,b.cust_name, b.cust_addr1, a.ship_to
         FROM order_d_status a
         INNER JOIN customer b ON a.ship_to = b.cust_id
@@ -213,7 +114,8 @@ class Order_m extends CI_Model
         return $query;
     }
 
-    public function getTrackingOrderDetail($spk){
+    public function getTrackingOrderDetail($spk)
+    {
         $sql = "SELECT a.order_id, a.lokasi_terkini, b.cust_name, b.cust_addr1, a.order_status,
         a.ship_to, a.lat, a.lon, a.address, a.created_date, a.created_by 
         FROM order_d_status a

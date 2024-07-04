@@ -8,7 +8,7 @@
                     <div class="cart-box">
                         <div class="cart-left-box">
                             <a href="product.html" class="product-image">
-                                <img src="<?= base_url() ?>/assets/images/grocery/product/truck-carton.png" class="img-fluid" alt="">
+                                <img src="<?= base_url() ?>assets/images/grocery/product/truck-carton.png" class="img-fluid" alt="">
                             </a>
                             <div class="product-name">
                                 <h5>
@@ -58,29 +58,12 @@
                                 </div>
                             </div>
                             <div class="cart-right-box">
+                                <button data-delivery-no="<?= $data->delivery_no ?>" data-cust-addr="<?= $data->cust_addr1 ?>" data-ship-to="<?= $data->ship_to ?>" data-order-id="<?= $data->order_id ?>" data-cust-name="<?= $data->cust_name ?>" class="remove-button btn btnTrackSPK">
+                                    <i class="ri-road-map-line"></i>
+                                </button>
                                 <button data-delivery-no="<?= $data->delivery_no ?>" data-cust-addr="<?= $data->cust_addr1 ?>" data-ship-to="<?= $data->ship_to ?>" data-order-id="<?= $data->order_id ?>" data-cust-name="<?= $data->cust_name ?>" class="remove-button btn btnTrack">
                                     <i class="ri-edit-2-fill"></i>
                                 </button>
-
-                                <!-- <?php
-                                        if (is_null($data->arrival_status)) {
-                                        ?>
-                                    <button id="" data-cust-addr="<?= $data->cust_addr1 ?>" data-ship-to="<?= $data->ship_to ?>" data-order-id="<?= $data->order_id ?>" data-cust-name="<?= $data->cust_name ?>" class="remove-button btn btnArrival">
-                                        <i class="ri-truck-line"></i>
-                                    </button>
-                                <?php
-                                        }
-                                ?>
-
-                                <?php
-                                if (is_null($data->unloading_status)) {
-                                ?>
-                                    <button data-cust-addr="<?= $data->cust_addr1 ?>" data-ship-to="<?= $data->ship_to ?>" data-order-id="<?= $data->order_id ?>" data-cust-name="<?= $data->cust_name ?>" class="remove-button btn btnUnloading">
-                                        <i class="ri-inbox-unarchive-fill"></i>
-                                    </button>
-                                <?php
-                                }
-                                ?> -->
                             </div>
                         </div>
                         <hr>

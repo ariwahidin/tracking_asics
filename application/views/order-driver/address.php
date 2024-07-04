@@ -16,7 +16,7 @@
     <meta name="msapplication-TileImage" content="<?= base_url() ?>assets/svg/yusen.svg">
     <meta name="msapplication-TileColor" content="#FFFFFF">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="manifest" href="<?= base_url() ?>/manifest.json">
+    <link rel="manifest" href="<?= base_url() ?>manifest.json">
     <link rel="icon" href="<?= base_url() ?>assets/svg/yusen.svg" type="image/x-icon">
 
     <!-- Google font css link  -->
@@ -256,10 +256,35 @@
 
 
 
-    <!-- delete modal start -->
     <div class="modal fade delete-modal theme-modal" id="modalArrival">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" id="modal-conf">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade delete-modal theme-modal" id="modalTrackSPK">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" id="modal-track-spk">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="h5Cust">VANS AMBARUKMO PLAZA YOGYA</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        <i class="ri-close-line"></i>
+                    </button>
+                </div>
+                <div class="modal-body" style="overflow: auto; max-height: 300px;">
+                    <ul class="delivered-list" id="ulHistory">
+                        <li>
+                            <h5><i class="ri-truck-line"></i> <span style="font-weight: bolder;">Pelabuhan</span> </h5>
+                            <span style="font-size: 12px;"><i class="ri-map-pin-fill"></i> Jalan Tol Cibitungâ€“Cilincing, Kawasan Industri dan Peti Kemas, Cilincing, North Jakarta, Special Region of Jakarta, West Java, Java, 14150, Indonesia</span>
+                            <span style="font-size: 12px;"><i class="ri-map-pin-time-line"></i> 2024-05-18 18:00:00 <i class="ri-map-pin-user-line"></i> Dayana </span>
+                            <hr style="margin: 5px 0px;">
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-theme btn-light btnUpdateOrder">Update Status Order</button>
+                </div>
             </div>
         </div>
     </div>
@@ -495,6 +520,100 @@
                 $('#modalArrival').modal('show');
             })
 
+            $('#order-section').on('click', '.btnTrackSPK', function() {
+                startLoading();
+                let order_id = $(this).data('order-id');
+                let ship_to = $(this).data('ship-to');
+                let cust_name = $(this).data('cust-name');
+                let cust_addr = $(this).data('cust-addr');
+                let delivery_no = $(this).data('delivery-no');
+
+                $.post("<?= base_url('address/getHistoryTrack') ?>", {
+                    order_id,
+                    ship_to
+                }, function(response) {
+                    stopLoading();
+                    $('#h5Cust').text(cust_name);
+
+                    let history = response.data;
+                    let ul = $('#ulHistory');
+                    ul.empty();
+
+                    if(history.length > 0){
+                        history.forEach(item => {
+                        let list = `<li>
+                            <h5><i class="ri-truck-line"></i> <span style="font-weight: bolder;">${item.lokasi_terkini}</span> </h5>
+                            <span style="font-size: 12px;"><i class="ri-map-pin-fill"></i>${item.address}</span>
+                            <span style="font-size: 12px;"><i class="ri-map-pin-time-line"></i> ${item.created_date} <i class="ri-map-pin-user-line"></i> ${item.created_by} <i class="ri-progress-8-fill"></i> ${item.order_status} </span>
+                            <hr style="margin: 5px 0px;">
+                        </li>`;
+
+                        ul.append(list);
+                        });
+                    }else{
+                        let list = `<li><h5>Data not found</h5></li>`;
+
+                        ul.append(list);
+                    }
+                    $('#modalTrackSPK').modal('show');
+
+
+                    let driverName = '';
+                    if (localStorage.getItem('t_driverName')) {
+                        driverName = localStorage.getItem('t_driverName');
+                    }
+                    $('#modal-conf').empty();
+                    let elem = `
+                        <form id="formUpdateTrack">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Update order status:</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                <i class="ri-close-line"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="delete-list" id="conf-cust">
+                                <li>
+                                    <h5>
+                                        <a href="#">${cust_name}</a>
+                                    </h5>
+                                    <h6>${delivery_no}</h6>
+                                    <h6>${cust_addr}</h6>
+                                </li>
+                                <li>
+                                    <div class="mt-3 chatting-form-control">
+                                        <label>Barang sampai di :</label>
+                                        <input type="text" class="form-control form-control-border" placeholder="Terminal/Pelabuhan/Bandara etc.." id="lokasi_terkini" value="" required autocomplete="off">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="mt-3 chatting-form-control">
+                                        <label>Nama petugas :</label>
+                                        <input type="hidden" id="in_spk" value="${order_id}">
+                                        <input type="hidden" id="in_ship_to" value="${ship_to}">
+                                        <input type="hidden" id="delivery_no" value="${delivery_no}">
+                                        <input type="text" class="form-control form-control-border" placeholder="Masukan nama anda/petugas/driver" id="user_name" value="${driverName}" required autocomplete="off">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-theme btn-light btnSubmit" data-submit="on the way">Update Perjalanan</button>
+                            <button type="submit" class="btn btn-theme btn-light btnSubmit" data-submit="goods arrived">Barang Sampai</button>
+                            <button type="submit" class="btn btn-theme btn-light btnSubmit" data-submit="goods unloading">Barang Dibongkar</button>
+                        </div>
+                        </form>`;
+                    $('#modal-conf').html(elem);
+                }, 'JSON');
+
+
+            })
+
+            $('#modalTrackSPK').on('click', '.btnUpdateOrder', function() {
+                $('#modalTrackSPK').modal('hide');
+                $('#modalArrival').modal('show');
+            })
+
             var lastClickedButton;
             $('#modal-conf').on('click', '.btnSubmit', function() {
                 lastClickedButton = $(this);
@@ -539,9 +658,6 @@
                 $.get("<?= base_url('address/getBoxOrder') ?>", {
                     spk: spk
                 }, function(response) {
-
-                    console.log(response)
-
                     $('#order-section').empty();
                     $('#order-section').html(response.box);
 

@@ -2,11 +2,8 @@ var CACHE_NAME = 'mytms-v1'; // Nama cache untuk versi ini
 
 // Menambahkan file dan aset yang ingin di-cache
 var urlsToCache = [
-    '/',
-    '/mytms/',
-    '/mytms/index.php',
-    '/mytms/assets/css/styles.css',
-    '/mytms/assets/js/scripts.js',
+    '/mytms/assets/css/style.css',
+    '/mytms/assets/js/script.js',
     // Tambahkan file lain yang ingin Anda cache di sini
 ];
 
@@ -23,26 +20,31 @@ self.addEventListener('install', function (event) {
 
 // Menggunakan cache ketika jaringan tidak tersedia
 self.addEventListener('fetch', function (event) {
+    // Filter requests with unsupported schemes
+    if (event.request.url.startsWith('chrome-extension')) {
+        return;
+    }
+
     event.respondWith(
-        caches.match(event.request)
-            .then(function (response) {
-                if (response) {
-                    return response; // Gunakan cache jika ada
-                }
-                // Clone permintaan untuk caching di runtime
-                var fetchRequest = event.request.clone();
-                return fetch(fetchRequest).then(function (response) {
-                    if (!response || response.status !== 200 || response.type !== 'basic') {
-                        return response; // Jika respons tidak valid, langsung kembalikan
-                    }
-                    // Clone respons untuk menyimpannya di cache
-                    var responseToCache = response.clone();
-                    caches.open(CACHE_NAME).then(function (cache) {
-                        cache.put(event.request, responseToCache);
-                    });
+        caches.match(event.request).then(function (response) {
+            if (response) {
+                return response;
+            }
+
+            return fetch(event.request).then(function (response) {
+                if (!response || response.status !== 200 || response.type !== 'basic') {
                     return response;
+                }
+
+                var responseToCache = response.clone();
+
+                caches.open(CACHE_NAME).then(function (cache) {
+                    cache.put(event.request, responseToCache);
                 });
-            })
+
+                return response;
+            });
+        })
     );
 });
 
