@@ -667,7 +667,8 @@
             var reader = document.getElementById('reader');
 
             $('#btnScan').on('click', function() {
-                window.location.href = "<?= base_url('order/scan') ?>";
+                startLoading();
+                window.location.href = "<?= base_url('scan/qr') ?>";
             });
 
         });

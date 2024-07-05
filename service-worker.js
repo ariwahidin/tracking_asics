@@ -64,3 +64,35 @@ self.addEventListener('activate', function (event) {
         })
     );
 });
+
+// Menghapus cache saat menerima pesan
+self.addEventListener('message', function (event) {
+    if (event.data.action === 'clearCache') {
+        caches.keys().then(function (cacheNames) {
+            cacheNames.forEach(function (cacheName) {
+                caches.delete(cacheName);
+            });
+        });
+    }
+});
+
+// Tidak pakai cache
+// self.addEventListener('install', function (event) {
+//     console.log('Service Worker installed');
+// });
+
+// self.addEventListener('fetch', function (event) {
+//     // Do nothing for fetch events, essentially bypassing the cache
+//     event.respondWith(fetch(event.request));
+// });
+
+// self.addEventListener('activate', function (event) {
+//     console.log('Service Worker activated');
+// });
+
+// // Optionally, you can add a message event listener if you need to handle custom actions like clearing cache (though no cache is used here)
+// self.addEventListener('message', function (event) {
+//     console.log('Received message: ', event.data);
+//     // No caching logic to clear
+// });
+

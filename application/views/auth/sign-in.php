@@ -10,14 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="multikit">
     <meta name="keywords" content="multikit">
-    <title>Multikit - Multi-purpose Html Template</title>
+    <title>Sign In - My TMS</title>
     <meta name="theme-color" content="#ff8d2f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="multikit">
     <meta name="msapplication-TileColor" content="#FFFFFF">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="icon" href="<?= base_url() ?>assets/svg/yusen.svg" type="image/x-icon">
+    <link rel="manifest" href="<?= base_url() ?>/manifest.json">
 
     <!-- Google font css link  -->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -46,53 +46,39 @@
     <!-- Loader Box End -->
 
     <!-- authentication start -->
-    <div class="grocery-authentication">
+    <div style="background-image: none !important;" class="grocery-authentication">
         <div class="custom-container">
             <div class="logo-content">
                 <img src="<?= base_url() ?>assets/svg/yusen.svg" class="img-fluid logo" alt="">
-                <p>Online Supermarket for all your daily needs. you are just One Click away from your all needs at
-                    your door step.</p>
+                <p>Smart Solutions for Your Delivery Management, Control Your Deliveries at Your Fingertips, Bringing Transparency to Every Step.</p>
             </div>
             <div class="auth-box">
                 <div class="auth-title">
                     <h4>Login Account</h4>
                 </div>
 
-                <form class="form-style-7">
+                <?php if ($this->session->flashdata('error')) : ?>
+                    <p style="color: red;"><?php echo $this->session->flashdata('error'); ?></p>
+                <?php endif; ?>
+
+                <form class="form-style-7" action="<?php echo base_url('auth/authenticate'); ?>" method="post">
                     <div class="form-box mb-19">
-                        <input type="email" class="form-control" placeholder="Email Address">
-                        <i class="ri-mail-open-line"></i>
+                        <input type="text" class="form-control" placeholder="Username" id="username" name="username" value="<?php echo set_value('username', $this->session->flashdata('username')); ?>" required>
+                        <i class="ri-user-line"></i>
                     </div>
                     <div class="form-box mb-2">
-                        <input type="password" class="form-control" placeholder="Password">
+                        <input type="password" class="form-control" placeholder="Password" id="password" name="password" value="<?php echo set_value('password', $this->session->flashdata('password')); ?>" required>
                         <i class="ri-lock-line"></i>
                     </div>
-                    <h6 class="forgot-text text-end fw-normal mb-19">
+                    <!-- <h6 class="forgot-text text-end fw-normal mb-19">
                         <a href="forgot-password.html" class="content-color">Forgot password?</a>
-                    </h6>
-                    <a href="<?= base_url('welcome/index') ?>" class="grocery-btn theme-btn">Sign in</a>
-                    <h5 class="text-center mt-3">
+                    </h6> -->
+                    <!-- <a href="<?= base_url('welcome/index') ?>" class="grocery-btn theme-btn">Sign in</a> -->
+                    <button type="submit" class="grocery-btn theme-btn">Login</button>
+                    <!-- <h5 class="text-center mt-3">
                         <a href="sign-up.html" class="content-color">If you are new, Create Now</a>
-                    </h5>
-                    <div class="auth-divider">
-                        <label>Or sign in with</label>
-                    </div>
+                    </h5> -->
                 </form>
-
-                <ul class="social-style-5">
-                    <li>
-                        <a href="https://www.facebook.com/" class="fb-bg" target="_blank">
-                            <img src="https://themes.pixelstrap.net/multikit/assets/images/social/fb.svg" alt="">
-                            <h4>Facebook</h4>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.google.com/" class="google-bg" target="_blank">
-                            <img src="https://themes.pixelstrap.net/multikit/assets/images/social/google.svg" alt="">
-                            <h4>Google</h4>
-                        </a>
-                    </li>
-                </ul>
 
                 <h5 class="guest-button">
                     <a href="index.html">Continue as guest</a>
@@ -117,9 +103,20 @@
     <!-- Theme js-->
     <script src="<?= base_url() ?>assets/js/script.js"></script>
 
+    <!-- Jquery -->
+    <script src="<?= base_url() ?>/assets/js/jquery-3.7.0.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('<?= base_url() ?>service-worker.js')
+                .then(function(registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                }).catch(function(error) {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
+    </script>
+
 </body>
-
-
-<!-- Mirrored from themes.pixelstrap.net/multikit/grocery/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 25 Jun 2024 14:17:14 GMT -->
 
 </html>

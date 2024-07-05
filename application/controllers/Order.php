@@ -7,6 +7,11 @@ class Order extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+		$this->load->library('session');
+		$this->load->helper('url');
+		if (!$this->session->userdata('tms_username')) {
+			redirect(base_url('auth/index'));
+		}
 		$this->load->database();
 		$this->load->model(['order_m']);
 	}
@@ -30,11 +35,6 @@ class Order extends CI_Controller
 		echo json_encode($response);
 	}
 
-	public function scan()
-	{
-		$this->load->view('order/qr_scan');
-	}
-
 	public function tracking()
 	{
 		if ($this->input->get('spk')) {
@@ -44,6 +44,4 @@ class Order extends CI_Controller
 			show_404();
 		}
 	}
-
-	
 }

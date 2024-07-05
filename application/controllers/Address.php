@@ -57,9 +57,4 @@ class Address extends CI_Controller
         echo json_encode(array('success' => false));
     }
 
-
-    public function search()
-    {
-        $this->load->view('address/search');
-    }
 }

@@ -13,17 +13,17 @@
 
             <ul class="menu-list">
                 <li>
-                    <a href="<?= base_url('order') ?>"><i class="ri-file-list-2-line"></i> Orders</a>
+                    <a onclick="loadingMenu()" href="<?= base_url('order') ?>"><i class="ri-file-list-2-line"></i> Orders</a>
                 </li>
                 <li>
-                    <a href="<?= base_url('order/scan') ?>"><i class="ri-qr-scan-2-line"></i> Scan SPK</a>
+                    <a onclick="loadingMenu()" href="<?= base_url('scan/qr') ?>"><i class="ri-qr-scan-2-line"></i> Scan SPK</a>
                 </li>
                 <li>
-                    <a href="<?= base_url('address/search') ?>"><i class="ri-earth-fill"></i> Cari Alamat</a>
+                    <a onclick="loadingMenu()"  href="<?= base_url('search/address') ?>"><i class="ri-earth-fill"></i> Cari Alamat</a>
                 </li>
             </ul>
 
-            <!-- <a href="sign-in.html" class="sidebar-btn grocery-btn white-btn">Logout</a> -->
+            <a href="<?= base_url('auth/logout') ?>" class="sidebar-btn grocery-btn white-btn">Logout</a>
         </div>
     </div>
     <!-- Side Menu Offcanvas End -->
@@ -52,6 +52,11 @@
                     console.log('Service Worker registration failed:', error);
                 });
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            
+        });
     </script>
 
     </body>
