@@ -5,6 +5,6 @@ class Search extends CI_Controller
 {
 	public function address()
 	{
-		$this->load->view('order/index');
+		$this->load->view('address/search');
 	}
 }

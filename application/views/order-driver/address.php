@@ -359,10 +359,6 @@
     <!-- Bootstrap js-->
     <script src="<?= base_url() ?>assets/js/vendors/bootstrap/bootstrap.bundle.min.js"></script>
 
-    <!-- Map js -->
-
-    <!-- <script src="<?= base_url() ?>assets/js/custom-map.js"></script> -->
-
     <!-- Loader js -->
     <script src="<?= base_url() ?>assets/js/loader.js"></script>
 
