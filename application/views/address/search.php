@@ -10,12 +10,12 @@ $this->load->view('layouts/header');
 
 <section>
     <div class="map-section">
-        <div style="max-height: 400px;" id="map"></div>
+        <div style="max-height: 350px;" id="map"></div>
     </div>
 </section>
 <section>
     <div style="margin-top: 10px;" class="custom-container">
-        <form class="form-style-7">
+        <form class="form-style-7" id="formSearch">
             <div style="margin-bottom:5px;" class="form-box search-box">
                 <input type="text" class="form-control" id="search" placeholder="Masukan nama tempat">
                 <i class="ri-search-line"></i>
@@ -36,9 +36,44 @@ $this->load->view('layouts/header');
     </div>
 </section>
 
-<!-- <section class="map-section">
+<div class="mobile-style-6">
+    <ul style="justify-content: center">
+        <li>
+            <a href="javascript:void(0)" class="mobile-box">
+                <i class="ri-map-pin-add-line"></i>
+                <h6>Add Location</h6>
+            </a>
+        </li>
 
-</section> -->
+        <!-- <li>
+            <a href="category.html" class="mobile-box">
+                <i class="ri-file-copy-line"></i>
+                <h6>Category</h6>
+            </a>
+        </li>
+
+        <li>
+            <a href="search.html" class="mobile-box">
+                <i class="ri-search-line"></i>
+                <h6>Search</h6>
+            </a>
+        </li>
+
+        <li>
+            <a href="cart.html" class="mobile-box">
+                <i class="ri-shopping-cart-line"></i>
+                <h6>Cart</h6>
+            </a>
+        </li>
+
+        <li>
+            <a href="account.html" class="mobile-box">
+                <i class="ri-user-3-line"></i>
+                <h6>Profile</h6>
+            </a>
+        </li> -->
+    </ul>
+</div>
 
 <?php
 $this->load->view('layouts/sidemenu');
@@ -53,14 +88,20 @@ $this->load->view('layouts/sidemenu');
             debounceTimer = setTimeout(function() {
                 let keywords = $('#search').val();
                 if (keywords.length > 5) {
-                    keywords = keywords.replace(/ /g, "+");
-                    $.get("https://nominatim.openstreetmap.org/search.php?q=" + keywords + "&format=jsonv2", {}, function(response) {
+                    getAddress(keywords);
+                }
+            }, 300); // Menjalankan fungsi setelah 300 milidetik
+        });
 
-                        $('#spResult').text(response.length);
-                        $('#divResult').empty();
-                        $('#divResult').append(`<ul class="product-offer-list">`);
-                        response.forEach(function(item) {
-                            let li = `
+        function getAddress(keywords) {
+            keywords = keywords.replace(/ /g, "+");
+            $.get("https://nominatim.openstreetmap.org/search.php?q=" + keywords + "&format=jsonv2", {}, function(response) {
+
+                $('#spResult').text(response.length);
+                $('#divResult').empty();
+                $('#divResult').append(`<ul class="product-offer-list">`);
+                response.forEach(function(item) {
+                    let li = `
                                         <li class="address-item" data-lat="${item.lat}" data-lng="${item.lon}">
                                             <div class="product-box" style="font-size: 10px !important;">
                                                 <div class="product-content">
@@ -74,107 +115,19 @@ $this->load->view('layouts/sidemenu');
                                         </li
                                 
                             `;
-                            $('#divResult').append(li);
-                        })
-                        $('#divResult').append(`</ul>`);
-                    }, 'json');
-                }
-            }, 300); // Menjalankan fungsi setelah 300 milidetik
-        });
+                    $('#divResult').append(li);
+                })
+                $('#divResult').append(`</ul>`);
+            }, 'json');
+        }
 
-
-
-        // var map, marker, userLat, userLon, userAddress;
-
-        // if (navigator.geolocation) {
-        //     navigator.geolocation.getCurrentPosition(showPosition, showError);
-        // } else {
-        //     alert("Geolocation is not supported by this browser.");
-        // }
-
-        // $('#btnCenter').on('click', function() {
-        //     if (navigator.geolocation) {
-        //         navigator.geolocation.getCurrentPosition(showPosition, showError);
-        //     } else {
-        //         alert("Geolocation is not supported by this browser.");
-        //     }
-        // });
-
-        // function initializeMap(lat, lon) {
-        //     if (!map) {
-        //         // Initialize the map
-        //         map = L.map('map').setView([lat, lon], 13); // 13 is the zoom level
-
-        //         // Add the OpenStreetMap tiles
-        //         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        //             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        //         }).addTo(map);
-
-        //         // Add a marker to the map
-        //         marker = L.marker([lat, lon]).addTo(map);
-        //     } else {
-        //         map.setView([lat, lon], 13);
-        //         marker.setLatLng([lat, lon]);
-        //     }
-        // }
-
-        // function showPosition(position) {
-        //     var lat = position.coords.latitude;
-        //     var lon = position.coords.longitude;
-
-        //     initializeMap(lat, lon);
-
-        //     var geocodeURL = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`;
-
-        //     $.getJSON(geocodeURL, function(data) {
-        //         if (data && data.address) {
-        //             var address = data.address;
-        //             var city = address.city || address.town || address.village;
-        //             var city_district = address.city_district;
-        //             var country = address.country;
-        //             var country_code = address.country_code;
-        //             var industrial = address.industrial;
-        //             var region = address.region;
-        //             var postcode = address.postcode;
-        //             var address_name = data.display_name;
-
-        //             userAddress = data.display_name;
-        //             userLon = data.lon;
-        //             userLat = data.lat;
-
-        //             $('#spanCountry').text(city_district + ', ' + country);
-        //             $('#spanFullAddress').text(address_name);
-
-        //             // Update marker popup with address
-        //             marker.bindPopup(`<b>Your location :</b> ${data.display_name}`).openPopup();
-
-        //             // Adjust the map view to center slightly above the marker position
-        //             var offsetLat = lat - 0; // Adjust this value to move the map center
-        //             map.setView([offsetLat, lon], 13);
-        //         } else {
-        //             alert("Geocode was not successful for the following reason: " + data.error);
-        //         }
-        //     });
-        // }
-
-        // function showError(error) {
-        //     switch (error.code) {
-        //         case error.PERMISSION_DENIED:
-        //             alert("Pengguna menolak permintaan Geolokasi.");
-        //             break;
-        //         case error.POSITION_UNAVAILABLE:
-        //             alert("Location information is unavailable.");
-        //             break;
-        //         case error.TIMEOUT:
-        //             alert("The request to get user location timed out.");
-        //             break;
-        //         case error.UNKNOWN_ERROR:
-        //             alert("An unknown error occurred.");
-        //             break;
-        //     }
-        // }
-
-
+        $('#formSearch').on('submit', function(e) {
+            e.preventDefault();
+            let keywords = $('#search').val();
+            if (keywords.length > 5) {
+                getAddress(keywords);
+            }
+        })
 
     });
 
