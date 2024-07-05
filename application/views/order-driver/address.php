@@ -524,7 +524,8 @@
                 let cust_addr = $(this).data('cust-addr');
                 let delivery_no = $(this).data('delivery-no');
 
-                $.post("<?= base_url('address/getHistoryTrack') ?>", {
+                let url = "<?= api_url('order/status') ?>";
+                $.post(url, {
                     order_id,
                     ship_to
                 }, function(response) {
@@ -535,18 +536,18 @@
                     let ul = $('#ulHistory');
                     ul.empty();
 
-                    if(history.length > 0){
+                    if (history.length > 0) {
                         history.forEach(item => {
-                        let list = `<li>
+                            let list = `<li>
                             <h5><i class="ri-truck-line"></i> <span style="font-weight: bolder;">${item.lokasi_terkini}</span> </h5>
                             <span style="font-size: 12px;"><i class="ri-map-pin-fill"></i>${item.address}</span>
                             <span style="font-size: 12px;"><i class="ri-map-pin-time-line"></i> ${item.created_date} <i class="ri-map-pin-user-line"></i> ${item.created_by} <i class="ri-progress-8-fill"></i> ${item.order_status} </span>
                             <hr style="margin: 5px 0px;">
                         </li>`;
 
-                        ul.append(list);
+                            ul.append(list);
                         });
-                    }else{
+                    } else {
                         let list = `<li><h5>Data not found</h5></li>`;
 
                         ul.append(list);

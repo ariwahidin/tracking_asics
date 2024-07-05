@@ -33,3 +33,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 application/config/config.php
 application/config/database.php
 qr_scanner/node_modules
+mytms-api/node_modules/*
