@@ -2,6 +2,9 @@
 $this->load->view('layouts/header');
 ?>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!-- Map link -->
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/css/leaflet.css">
 <script src="<?= base_url() ?>assets/js/leaflet.js"></script>
@@ -39,7 +42,7 @@ $this->load->view('layouts/header');
 <div class="mobile-style-6">
     <ul style="justify-content: center">
         <li>
-            <a href="javascript:void(0)" class="mobile-box">
+            <a href="javascript:void(0)" id="addLocation" class="mobile-box" data-bs-toggle="offcanvas" data-bs-target="#editOffcanvas">
                 <i class="ri-map-pin-add-line"></i>
                 <h6>Add Location</h6>
             </a>
@@ -73,6 +76,85 @@ $this->load->view('layouts/header');
             </a>
         </li> -->
     </ul>
+</div>
+
+
+<!-- <div class="modal fade delete-modal theme-modal" id="modalAddLocation">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" id="modal-track-spk">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Add Location</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="overflow: auto; max-height: 300px;">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-theme btn-light btnSelectCustomer">Choose Customer</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="editOffcanvas">
+    <div class="offcanvas-header">
+        <h3 class="offcanvas-title w-75">Add Location</h3>
+        <button type="button" class="btn-close p-0 m-0" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body pt-0">
+        <form class="row g-3 form-style-7 wo-icon" id="formAddLocation">
+            <div class="col-12">
+                <label for="inputState" class="form-label">BU</label>
+                <select class="form-select" id="in_bu" required>
+                    <option value="" selected>Choose...</option>
+                    <option value="SPKAS">Asics</option>
+                    <option value="SPKNV">Navya</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Customer Name</label>
+                <select class="form-select" id="in_customer_name" required>
+                    <option value="" selected>Choose...</option>
+                </select>
+            </div>
+            <div class="col-5">
+                <label for="inputAddress2" class="form-label">Latitude</label>
+                <input style="max-width: 150px;" type="text" class="form-control-sm" id="in_latitude" readonly>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-5">
+                <label for="inputAddress2" class="form-label">Longitude</label>
+                <input style="max-width: 150px;" type="text" class="form-control-sm" id="in_longitude" readonly>
+            </div>
+            <div class="col-12">
+                <label for="inputCity" class="form-label">Actual Location</label>
+                <textarea type="text" class="form-control" id="in_actual_location" readonly></textarea>
+            </div>
+            <div class="d-flex align-items-center mt-4 gap-3">
+                <a href="#" class="btn border-btn grocery-btn theme-btn" data-bs-dismiss="offcanvas">Cancel</a>
+                <button type="submit" class="btn grocery-btn theme-btn">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade delete-modal theme-modal" id="modalSelectCustomer">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" id="modal-track-spk">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Pilih Customer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="overflow: auto; max-height: 300px;">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-theme btn-light btnUpdateOrder">Select</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?php
@@ -129,6 +211,59 @@ $this->load->view('layouts/sidemenu');
             }
         })
 
+        $('#in_bu').on('change', function() {
+            let bu = $(this).val();
+            if (bu.trim() != '') {
+                // console.log(bu);
+                startLoading();
+                $.post("<?= base_url('search/getJSONCustomer') ?>", {
+                    bu
+                }, function(response) {
+                    stopLoading();
+                    let inSelect = $('#in_customer_name');
+                    inSelect.empty();
+                    inSelect.append(`<option value="" selected>Choose...</option>`);
+                    if (response.data.length > 0) {
+                        response.data.forEach((item) => {
+                            let option = `<option value="${item.cust_id}">${item.cust_name}</option>`;
+                            inSelect.append(option);
+                        });
+                    }
+                }, 'JSON');
+            }
+        });
+
+        $('#formAddLocation').on('submit', function(e) {
+            e.preventDefault();
+            if ($('#in_latitude').val() == '') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: '',
+                    text: 'Titik lokasi harus ditentukan'
+                });
+            } else {
+                let dataToPost = {
+                    bu: $('#in_bu').val(),
+                    cust_id: $('#in_customer_name').val(),
+                    lat: $('#in_latitude').val(),
+                    lon: $('#in_longitude').val(),
+                    actual_location: $('#in_actual_location').text(),
+                }
+                startLoading();
+                $.post("<?= base_url('search/saveLocationCustomer') ?>", dataToPost, function(response) {
+                    stopLoading();
+                }, 'JSON');
+            }
+        });
+
+        // $('#addLocation').on('click', function() {
+        //     $('#modalAddLocation').modal('show');
+        // })
+
+        // $('.btnSelectCustomer').on('click', function() {
+        //     $('#modalSelectCustomer').modal('show');
+        // })
+
     });
 
 
@@ -165,6 +300,9 @@ $this->load->view('layouts/sidemenu');
 
                     // Simpan koordinat pada variabel
                     console.log("Koordinat tersimpan: Latitude = " + lat + ", Longitude = " + lng);
+                    $('#in_latitude').val(lat);
+                    $('#in_longitude').val(lng);
+                    $('#in_actual_location').text(data.display_name);
 
                     // Pindahkan peta ke koordinat baru
                     map.setView([lat, lng], 13);

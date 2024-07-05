@@ -6,8 +6,13 @@
                     <img src="<?= base_url() ?>/assets/images/grocery/user.png" class="img-fluid" alt="">
                 </a>
                 <div class="profile-content">
-                    <h4>Guest</h4>
-                    <!-- <h5>paigeturner@gmail.com</h5> -->
+                    <?php
+                    $user = 'Guest';
+                    if ($this->session->userdata('tms_username')) {
+                        $user = $this->session->userdata('tms_username');
+                    }
+                    ?>
+                    <h4><?= $user ?></h4>
                 </div>
             </div>
 
@@ -19,7 +24,7 @@
                     <a onclick="loadingMenu()" href="<?= base_url('scan/qr') ?>"><i class="ri-qr-scan-2-line"></i> Scan SPK</a>
                 </li>
                 <li>
-                    <a onclick="loadingMenu()"  href="<?= base_url('search/address') ?>"><i class="ri-earth-fill"></i> Cari Alamat</a>
+                    <a onclick="loadingMenu()" href="<?= base_url('search/address') ?>"><i class="ri-earth-fill"></i> Cari Alamat</a>
                 </li>
             </ul>
 
@@ -55,7 +60,7 @@
     </script>
     <script>
         $(document).ready(function() {
-            
+
         });
     </script>
 

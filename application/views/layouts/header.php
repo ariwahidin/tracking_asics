@@ -242,7 +242,7 @@
         </div>
         <div class="center-header">
             <a href="#">
-                <img src="<?= base_url() ?>assets/svg/yusen.svg" class="img-fluid" alt="" style="width: 85px !important; height: 30px;">
+                <img src="<?= base_url() ?>assets/svg/yusen.svg" class="img-fluid" alt="" style="width: 80px !important; height: 25px;">
             </a>
         </div>
         <div class="right-header">
