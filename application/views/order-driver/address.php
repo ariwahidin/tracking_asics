@@ -252,6 +252,12 @@
     </section>
 
     <section id="order-section">
+        <div style="max-height: 450px; overflow: auto" class="grocery-location-box">
+            <div class="custom-container">
+                <ul class="cart-box-list" id="listOrder">
+                </ul>
+            </div>
+        </div>
     </section>
 
 
@@ -632,7 +638,9 @@
                         status: status
                     }
                     startLoading();
-                    $.post("<?= base_url('address/updateStatusOrder') ?>", dataToPost, function(response) {
+                    // let url = "<?= base_url('address/updateStatusOrder') ?>";
+                    let url = "<?= api_url('/status/save') ?>";
+                    $.post(url, dataToPost, function(response) {
                         if (response.success == true) {
                             $('#modalArrival').modal('hide');
                             $('#exampleModalToggle2').modal('show');
@@ -647,17 +655,69 @@
                 }
             })
 
-
             getBoxOrder();
 
             function getBoxOrder() {
                 let spk = "<?= $_GET['spk'] ?>";
-                $.get("<?= base_url('address/getBoxOrder') ?>", {
+                let url = "<?= api_url('order/get') ?>";
+                let divList = $("#listOrder");
+
+                $.post(url, {
                     spk: spk
                 }, function(response) {
-                    $('#order-section').empty();
-                    $('#order-section').html(response.box);
-
+                    divList.empty();
+                    divList.append(`<li>
+                                        <div class="cart-box">
+                                            <div class="cart-left-box">
+                                                <a href="#" class="product-image">
+                                                    <img src="<?= base_url() ?>assets/images/grocery/product/truck-carton.png" class="img-fluid" alt="">
+                                                </a>
+                                                <div class="product-name">
+                                                    <h5>
+                                                        <a href="#">SPK : ${spk}</a>
+                                                    </h5>
+                                                    <h6>Drop point : ${response.data.length} </h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>`);
+                    response.data.forEach((item) => {
+                        let list = `<li style="margin-bottom: -15px !important;">
+                                        <div style="margin-top: 0;" class="cart-box">
+                                            <div class="cart-left-box">
+                                                <div class="product-name">
+                                                    <h5>
+                                                        <a href="#">${item.cust_name}</a>
+                                                    </h5>
+                                                    <h6>${item.delivery_no}</h6>
+                                                    <h6>${item.cust_addr1}</h6>
+                                                </div>
+                                            </div>
+                                            <div class="cart-right-box">
+                                                <button 
+                                                data-delivery-no="${item.delivery_no}" 
+                                                data-cust-addr="${item.cust_addr1}" 
+                                                data-ship-to="${item.ship_to}" 
+                                                data-order-id="${item.order_id}" 
+                                                data-cust-name="${item.cust_name}" 
+                                                class="remove-button btn btnTrackSPK">
+                                                    <i class="ri-road-map-line"></i>
+                                                </button>
+                                                <button 
+                                                data-delivery-no="${item.delivery_no}" 
+                                                data-cust-addr="${item.cust_addr1}" 
+                                                data-ship-to="${item.ship_to}" 
+                                                data-order-id="${item.order_id}" 
+                                                data-cust-name="${item.cust_name}" 
+                                                class="remove-button btn btnTrack">
+                                                    <i class="ri-edit-2-fill"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </li>`;
+                        divList.append(list);
+                    });
                 }, 'json');
             }
 

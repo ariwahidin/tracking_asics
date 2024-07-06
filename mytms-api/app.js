@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const customerRoutes = require('./routes/customerRoutes');
+const guestRoutes = require('./routes/guestRoutes');
 
 const app = express();
 const port = 3000;
@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Use customer routes
-app.use('/mytms-api', customerRoutes);
+app.use('/mytms-api', guestRoutes);
 
 // Start the server
 app.listen(port, () => {

@@ -1,11 +1,5 @@
-RewriteEngine On
-
-# Cache Control Headers:
-<ifModule mod_headers.c>
-  Header set Cache-Control "max-age=31536000, public"
-</ifModule>
-
 # CodeIgniter Rewrite Rules:
+RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L]
